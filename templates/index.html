@@ -52,7 +52,7 @@
     <header class="top-header">
         <nav class="navbar header-nav navbar-expand-lg">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.html"><img src="{{url_for('static', filename='images/plogo1.png')}}" alt="image" style="width:150px; height:150px"></a>
+                <a class="navbar-brand" href="#"><img src="{{url_for('static', filename='images/plogo1.png')}}" alt="image" style="width:150px; height:150px"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-wd" aria-controls="navbar-wd" aria-expanded="false" aria-label="Toggle navigation">
                     <span></span>
                     <span></span>
@@ -60,13 +60,14 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbar-wd">
                     <ul class="navbar-nav">
-                        <li><a class="nav-link active" href="index.html">Home</a></li>
-                        <li><a class="nav-link" href="about.html">About</a></li>
-                        <li><a class="nav-link" href="courses.html">Courses</a></li>
-                        <li><a class="nav-link" href="reaserch.html">Reaserch</a></li>
-						<li><a class="nav-link" href="news.html">Blog</a></li>
-						<li><a class="nav-link" href="contact.html">Contact us</a></li>
-                        <li><a class="nav-link" href="#">Login</a></li>
+                        <li><a class="nav-link active" href="#">Home</a></li>
+                        <li><a class="nav-link" href="#about">About</a></li>
+                        <li><a class="nav-link" href="#courses">Courses</a></li>
+                        <li><a class="nav-link" href="#research">Reaserch</a></li>
+						<li><a class="nav-link" href="#blog">Blog</a></li>
+						<li><a class="nav-link" href="#contact">Contact us</a></li>
+                        <li><a class="nav-link" href="{{url_for('signuppage')}}">Sign Up</a></li>
+                        <li><a class="nav-link" href="{{url_for('loginpage')}}">Log In</a></li>
                     </ul>
                 </div>
                 <div class="search-box">
@@ -94,7 +95,7 @@
                                         <h4>University of Nigeria Nsukka</h4>
                                         <br>
                                         <div class="full center">
-										    <a class="contact_bt" href="courses.html">Start a Course</a>
+										    <a class="contact_bt" href="#courses">Start a Course</a>
 										</div>
                                     </div>
                                 </div>
@@ -110,7 +111,7 @@
                                         <h4>Dive into our World!</h4>
                                         <br>
                                         <div class="full center">
-										    <a class="contact_bt" href="courses.html">Start a Course</a>
+										    <a class="contact_bt" href="#courses">Start a Course</a>
 										</div>
                                     </div>
                                 </div>
@@ -145,7 +146,7 @@
 	</div>
 	<!-- end section -->
 	<!-- section -->
-    <div class="section margin-top_50">
+    <div class="section margin-top_50" id="about">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 layout_padding_2">
@@ -174,7 +175,7 @@
     </div>
 	<!-- end section -->
 	<!-- section -->
-    <div class="section layout_padding">
+    <div class="section layout_padding" id="courses">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -238,7 +239,7 @@
     </div>
 	<!-- end section -->
 	<!-- section -->
-    <div class="section layout_padding padding_bottom-0">
+    <div class="section layout_padding padding_bottom-0" id="research">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
@@ -270,7 +271,7 @@
     </div>
 	<!-- end section -->
 	<!-- section -->
-    <div class="section layout_padding padding_bottom-0">
+    <div class="section layout_padding padding_bottom-0" id="blog">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -341,7 +342,7 @@
         </div>
 	<!-- end section -->
 	<!-- section -->
-    <div class="section layout_padding padding_bottom-0">
+    <div class="section layout_padding padding_bottom-0" id="contact">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -441,7 +442,7 @@
 							 <ul class="full">
 							   <li><img src="{{url_for('static', filename='images/i5.png')}}"><span>Department of Electrical Engineering<br>University of Nigeria Nsukka</span></li>
 							   <li><img src="{{url_for('static', filename='images/i6.png')}}"><span>powertron@gmail.com</span></li>
-							   <li><img src="{{url_for('static', filename='images/i7.png')}}"><span>+234860954775</span></li>
+							   <li><img src="{{url_for('static', filename='images/i7.png')}}"><span>+2348160054775</span></li>
 							 </ul>
 						 </div>
 					</div>	 
