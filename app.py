@@ -7,7 +7,8 @@ app = Flask(__name__)
 app.secret_key = b'bjbvjbovlbvjbvsbvlbvvblblvblvbbd'
 
 #Database
-mongo = MongoClient("mongodb://127.0.0.1:27017")
+# mongo = MongoClient("mongodb://127.0.0.1:27017")
+mongo = MongoClient("mongodb+srv://quickwork:quickwork@users.46fhmfp.mongodb.net/?retryWrites=true&w=majority")
 db = mongo.triple_e
 
 #Decorators

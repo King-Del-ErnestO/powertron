@@ -6,3 +6,8 @@ PyJWT==2.4.0
 pymongo==3.12.3
 Jinja2==3.0.3
 requests==2.27.1
+psycopg2==2.9.3
+psycopg2-binary==2.9.3
+Werkzeug==2.1.2
+zipp==3.8.0
+
