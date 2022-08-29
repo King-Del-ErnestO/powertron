@@ -1,10 +1,20 @@
-from flask import Flask, render_template, url_for, session, redirect
+from flask import Flask, render_template, url_for, session, redirect, request
 from functools import wraps
 from pymongo import MongoClient
+from flask_cors import CORS
+import cloudinary.uploader
 import os
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
 app.secret_key = b'bjbvjbovlbvjbvsbvlbvvblblvblvbbd'
+
+cloudinary.config(
+  cloud_name = "dhr6igdst",
+  api_key = "578356959545128",
+  api_secret = "GFvGFOvSVr0VfdeOMzos9BvU_Xc"
+)
+
 
 #Database
 # mongo = MongoClient("mongodb://127.0.0.1:27017")
@@ -49,7 +59,7 @@ def home():
 def dashboard(user):
     print(user)
     user = db['users'].find_one({"_id": f'{user}'})
-    print(user)
+    # print(user)
     # user_name = user['name']
     return render_template('dashboard/index.html', user=user)
 
@@ -61,6 +71,30 @@ def signuppage():
 @app.route('/login/')
 def loginpage():
     return render_template('login.html')
+
+@app.route('/profile/<user>')
+def profile(user):
+    print(user)
+    user = db['users'].find_one({"_id": f'{user}'})
+    print(user)
+    return render_template("dashboard/profile.html", user=user)
+
+@app.route('/profile_pic/<user>', methods=['POST'])
+def uprofile(user):
+    user = db['users'].find_one({"_id": f"{user}"})
+    print(user)
+    if "profile_image" in request.files:
+        profile_image = request.files['profile_image']
+        im_name = os.path.splitext(profile_image.filename)
+        cloudinary.uploader.upload(profile_image, public_id=im_name[0])
+        db['users'].update_one({"_id":user['_id']}, {"$set":{"profile_image_name":profile_image.filename}}, upsert=True)
+        return redirect(url_for("profile", user=user['_id']))
+    return render_template("dashboard/profile.html", user=user, message="Not successful!")
+
+
+@app.route("/file/<filename>")
+def file(filename):
+    return cloudinary.utils.cloudinary_url(filename)[0]
 
 
 

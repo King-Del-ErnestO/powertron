@@ -7,6 +7,7 @@ class User:
 
   def start_session(self, user):
     del user['password']
+    print(user)
     session['logged_in'] = True
     session['user'] = user
     user_id = user['_id']
@@ -23,6 +24,7 @@ class User:
       "last_name": request.form.get('last_name'),
       "matric_no": request.form.get('matric_no'),
       "email": request.form.get('email'),
+      "profile_image_name": "user.jpg",
       "phone_number": request.form.get('phone_number'),
       "current_level": request.form.get('current_level'),
       "password": request.form.get('password'),
@@ -38,7 +40,7 @@ class User:
       # Encrypt the password
       user['password'] = pbkdf2_sha256.encrypt(user['password'])
       del user['confirm_password']
-      if db.users.insert_one(user):
+      if db['users'].insert_one(user):
         return redirect(url_for('loginpage'))
     else:
       return render_template('signup.html', message="Password Mismatch!")
@@ -50,7 +52,7 @@ class User:
     return redirect('/')
   
   def login(self):
-
+    print(request.form.get('email'))
     user = db['users'].find_one({
       "email": request.form.get('email')
     })
