@@ -41,7 +41,6 @@
         </div>
         <!-- Spinner End -->
 
-
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
@@ -88,7 +87,7 @@
 
         <!-- Content Start -->
         <div class="content">
-            <!-- Navbar Start -->
+             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
                 <a href="{{url_for('dashboard', user=user._id)}}" class="navbar-brand d-flex d-lg-none me-4">
                     <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
@@ -169,7 +168,7 @@
                             <span class="d-none d-lg-inline-flex">{{user.first_name}}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
+                            <a href="{{url_for('profile', user=user._id)}}" class="dropdown-item">My Profile</a>
                             <a href="#" class="dropdown-item">Settings</a>
                             <a href="{{url_for('home')}}" class="dropdown-item">Log Out</a>
                         </div>
@@ -178,70 +177,20 @@
             </nav>
             <!-- Navbar End -->
 
-            <!-- Form Start -->
+
+        <!-- 404 Start -->
             <div class="container-fluid pt-4 px-4">
-                <div class="" style="width:90%; margin:auto;">
-
-                    <div class="">
-                        <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">Profile</h6>
-                            {% if message %}
-                            <p style="color:red;"> {{ message |  safe }}</p>
-                            {% endif %}
-                            <form action="{{url_for('uprofile', user=user._id)}}" enctype="multipart/form-data" method="post">
-                                    <div class="mb-3">
-                                        <label for="formFile" class="form-label">Profile Picture</label>
-                                        <input class="form-control" type="file" id="formFile" name="profile_image" value="{{request.form.profile_image}}" accept=".png,.gif,.jpeg,.jpg" required>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Upload</button>
-                                </form>
-
-
-                            <form>
-
-                                <div class="row mb-3">
-                                    <div class="col-sm-4 col-form-label">First Name:</div>
-                                    <div class="col-sm-4 col-form-label">
-                                        <p>{{user.first_name}}</p>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-sm-4 col-form-label">Last Name:</div>
-                                    <div class="col-sm-4 col-form-label">
-                                        <p>{{user.last_name}}</p>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-sm-4 col-form-label">Matric Number:</div>
-                                    <div class="col-sm-4 col-form-label">
-                                        <p>{{user.matric_no}}</p>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-sm-4 col-form-label">Email Address:</div>
-                                    <div class="col-sm-4 col-form-label">
-                                        <p>{{user.email}}</p>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-sm-4 col-form-label">Phone Number:</div>
-                                    <div class="col-sm-4 col-form-label">
-                                        <p>{{user.phone_number}}</p>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-sm-4 col-form-label">Current Level:</div>
-                                    <div class="col-sm-4 col-form-label">
-                                        <p>{{user.current_level}}</p>
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Save</button>
-                            </form>
-                        </div>
+                <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
+                    <div class="col-md-6 text-center p-4">
+                        <i class="bi bi-exclamation-triangle display-1 text-primary"></i>
+                        <h1 class="display-1 fw-bold">413</h1>
+                        <h1 class="mb-4">File too large</h1>
+                        <p class="mb-4">We’re sorry, but the file you tried to upload is too large. Please try a smaller image file size.</p>
+                        <a class="btn btn-primary rounded-pill py-3 px-5" href="{{url_for('profile', user=user._id)}}">Try Again?</a>
                     </div>
                 </div>
             </div>
-            <!-- Form End -->
+            <!-- 404 End -->
 
 
             <!-- Footer Start -->

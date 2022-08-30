@@ -48,10 +48,10 @@ cloudinary.config(
 # @cross_origin()
 
 # print(dir(cloudinary))
-if cloudinary.uploader.upload("user.jpg", public_id='user'):
+if cloudinary.uploader.upload("test.py", use_filename=True, folder='/triple_e', resource_type='auto'):
     print("DOne")
 
-# print(cloudinary.utils.cloudinary_url("sample_remote.jpg")[0])
+print(cloudinary.utils.cloudinary_url("triple_e/user.jpg")[0])
 
 # https://res.cloudinary.com/dhr6igdst/image/upload/v1661770494/triple_e.jpg
 # print(app.logger.info(im))

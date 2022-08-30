@@ -1,13 +1,23 @@
-from flask import Flask, render_template, url_for, session, redirect, request
+from flask import Flask, render_template, abort, url_for, session, redirect, request
 from functools import wraps
 from pymongo import MongoClient
 from flask_cors import CORS
 import cloudinary.uploader
 import os
+from passlib.hash import pbkdf2_sha256
+from werkzeug.exceptions import RequestEntityTooLarge
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 app.secret_key = b'bjbvjbovlbvjbvsbvlbvvblblvblvbbd'
+
+app.config['MAX_CONTENT_LENGTH'] = 7 * 1000 * 1000
+#
+# @app.errorhandler(413)
+# def page_not_found(e, ):
+#     return render_template("dashboard/error.html", message="Not Valid image type or extension!")
+
+
 
 cloudinary.config(
   cloud_name = "dhr6igdst",
@@ -82,20 +92,41 @@ def profile(user):
 @app.route('/profile_pic/<user>', methods=['POST'])
 def uprofile(user):
     user = db['users'].find_one({"_id": f"{user}"})
-    print(user)
-    if "profile_image" in request.files:
-        profile_image = request.files['profile_image']
-        im_name = os.path.splitext(profile_image.filename)
-        cloudinary.uploader.upload(profile_image, public_id=im_name[0])
-        db['users'].update_one({"_id":user['_id']}, {"$set":{"profile_image_name":profile_image.filename}}, upsert=True)
-        return redirect(url_for("profile", user=user['_id']))
+    # print(user)
+    try:
+        if "profile_image" in request.files:
+            profile_image = request.files['profile_image']
+            im_name = os.path.splitext(profile_image.filename)
+            print(im_name[1])
+            if im_name[1]=='.jpg' or im_name[1] == '.png' or im_name[1]=='.jpeg' or im_name[1]=='.gif':
+                cloudinary.uploader.upload(profile_image, public_id=im_name[0], folder='/triple_e')
+                db['users'].update_one({"_id":user['_id']}, {"$set":{"profile_image_name":profile_image.filename}}, upsert=True)
+                return redirect(url_for("profile", user=user['_id']))
+            else:
+                return render_template("dashboard/profile.html", user=user, message="Not Valid image type or extension!")
+    except RequestEntityTooLarge as e:
+        return redirect(url_for("errorr", user=user['_id']))
+
     return render_template("dashboard/profile.html", user=user, message="Not successful!")
+
+
+@app.route("/error/<user>", methods=['POST', 'GET'])
+def errorr(user):
+    print(user)
+    user = db['users'].find_one({"_id": f"{user}"})
+    return render_template("dashboard/error.html", user=user, message="File too Large!")
+
 
 
 @app.route("/file/<filename>")
 def file(filename):
     return cloudinary.utils.cloudinary_url(filename)[0]
 
+@app.route("/find/<user>")
+def find(user):
+    user = db['users'].find_one({"first_name": user})
+    p = pbkdf2_sha256.verify(request.form.get('password'), user['password'])
+    return p
 
 
 port = int(os.environ.get('PORT', 5000))
