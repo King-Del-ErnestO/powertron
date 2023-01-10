@@ -21,14 +21,14 @@ app.config['MAX_CONTENT_LENGTH'] = 7 * 1000 * 1000
 
 cloudinary.config(
   cloud_name = "dhr6igdst",
-  api_key = "578356959545128",
-  api_secret = "GFvGFOvSVr0VfdeOMzos9BvU_Xc"
+  api_key = "",
+  api_secret = ""
 )
 
 
 #Database
 # mongo = MongoClient("mongodb://127.0.0.1:27017")
-mongo = MongoClient("mongodb+srv://quickwork:quickwork@users.46fhmfp.mongodb.net/?retryWrites=true&w=majority")
+mongo = MongoClient("mongodb+srv://mongodb.net/?retryWrites=true&w=majority")
 db = mongo.triple_e
 
 #Decorators
